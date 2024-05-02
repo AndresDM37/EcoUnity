@@ -10,43 +10,217 @@
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin=""
     />
+
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+      * {
+        font-family: "Poppins", "sans-serif";
+      }
+
       body {
         margin: 0;
         padding: 0;
+        background: linear-gradient(
+          to right,
+          rgb(196, 252, 196),
+          rgb(214, 245, 165)
+        );
+      }
+
+      .navbar {
+        display: flex;
+        column-gap: 0.5rem;
+        margin: 0.3rem;
+      }
+
+      .navbar a {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--text-color);
+        padding: 0.8rem 1rem;
+      }
+
+      .navbar a:hover,
+      .navbar .home-active {
+        background: var(--hospital-green);
+        border-radius: 5rem;
+        color: var(--bg-color);
+      }
+
+      .containerMap {
+        display: flex;
+        justify-content: center;
+        width: 100%;
       }
 
       #map-template {
+        margin-top: 30px;
         height: 50%;
-        width: 50%;
+        width: 100%;
         top: 0;
         position: absolute;
         display: flex;
+        justify-items: center;
+      }
+
+      h1 {
+        display: flex;
         justify-content: center;
+        margin-top: 27%;
+        font-size: 2rem;
+        font-weight: 700;
+      }
+
+      .recomendations {
+        display: flex;
+        justify-content: center;
+        margin-left: 50px;
+        margin-right: 50px;
+        padding: 10px;
+      }
+
+      .recomendations div {
+        all: unset;
+        text-align: center;
+        background-color: rgb(184, 252, 184);
+        border: black solid 1px;
+      }
+      .recomendations div p {
+        font-size: 0.9rem;
+        margin-top: 10px;
+        text-align: center;
+      }
+
+      .popuTextTitle {
+        font-size: 0.9rem;
+        display: flex;
+        justify-content: center;
+      }
+
+      .popuRecomend {
+        font-size: 0.8rem;
+        margin-top: 10px;
+      }
+
+      .popuConsiderations {
+        font-size: 0.8rem;
+        margin-top: 10px;
       }
     </style>
   </head>
   <body>
-    <div id="map-template"></div>
-
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""
-    ></script>
+    <ul class="navbar">
+      <li><a href="./" class="home-active">Inicio</a></li>
+      <li><a href="#information">Informacion</a></li>
+    </ul>
+    <section class="containerMap">
+      <div id="map-template"></div>
+    </section>
+    <h1>RECOMENDACIONES GENERALES PARA PLANTAR</h1>
+    <section class="recomendations">
+      <div>
+        Preparación del suelo
+        <p>
+          Asegúrate de que el suelo esté bien preparado para la plantación, lo
+          que puede incluir labrar y fertilizar adecuadamente.
+        </p>
+      </div>
+      <div>
+        Selección de especies
+        <p>
+          Escoge especies nativas de la región para promover la biodiversidad y
+          asegurar un mayor éxito en el crecimiento.
+        </p>
+      </div>
+      <div>
+        Época de plantación
+        <p>
+          Generalmente, la mejor época para plantar es durante la temporada de
+          lluvias, lo cual ayuda al establecimiento de las plantas.
+        </p>
+      </div>
+      <div>
+        Mantenimiento
+        <p>
+          Las plantas jóvenes necesitarán cuidado y mantenimiento, como riego y
+          protección contra plagas y enfermedades.
+        </p>
+      </div>
+    </section>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
-      const map = L.map("map-template").setView([4.6089, -74.0875], 12);
+      const map = L.map("map-template").setView([4.6089, -74.0875], 5);
 
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {}).addTo(
+        map
+      );
 
-      L.marker([4.64227, -74.05373])
-        .addTo(map)
-        .bindPopup("Universidad Manuela Beltran")
-        .openPopup();
+      market();
+
+      function market(e) {
+        L.marker([4.2157, -69.9406])
+          .addTo(map)
+          .bindPopup(
+            "<div class='popuTextTitle'>LETICIA </div> <li class='popuRecomend'>Especies recomendadas: Caoba, Cedro, Copoazú.</li> <li class='popuConsiderations'>Consideraciones: Gran biodiversidad, requiere permisos especiales y colaboración con comunidades locales.</li>"
+          )
+          .openPopup();
+        L.marker([4.142, -73.6266])
+          .addTo(map)
+          .bindPopup(
+            "<div class='popuTextTitle'>Villavicencio</div> <li class='popuRecomend'>Especies recomendadas: Araguaney, Acacia, Guayacán.</li> <li class='popuConsiderations'> Consideraciones: Clima más seco, ideal para especies resistentes a la sequía.</li>"
+          )
+          .openPopup();
+        L.marker([6.2442, -75.5812])
+          .addTo(map)
+          .bindPopup(
+            "<div class='popuTextTitle'>Medellín</div> <li class='popuRecomend'> Especies recomendadas: Roble, Nogal, Pino Romerón.</li> <li class='popuConsiderations'> Consideraciones: Diversos climas debido a la altitud variada, adecuado para muchas especies.</li>"
+          )
+          .openPopup();
+        L.marker([10.9878, -74.7889])
+          .addTo(map)
+          .bindPopup(
+            "<div class='popuTextTitle'>Barranquilla</div> <li class='popuRecomend'> Especies recomendadas: Ceiba, Uva de Playa, Almendro.</li> <li class='popuConsiderations'> Consideraciones: Resistentes a la salinidad y vientos fuertes.</li>"
+          )
+          .openPopup();
+        L.marker([5.6947, -76.6611])
+          .addTo(map)
+          .bindPopup(
+            "<div class='popuTextTitle'>Quibdó</div> <li class='popuRecomend'> Especies recomendadas: Balsa, Choco, Teca.</li> <li class='popuConsiderations'> Consideraciones: Clima húmedo, requiere especies que toleren bien la humedad.</li>"
+          )
+          .openPopup();
+        L.marker([3.4516, -76.5319])
+          .addTo(map)
+          .bindPopup(
+            "<div class='popuTextTitle'>Cali </div> <li class='popuRecomend'> Especies recomendadas: Guayabo del país, Borojó, Palma de Vino.</li> <li class='popuConsiderations'> Consideraciones: Ideal para especies que requieren humedad constante, colaboración con comunidades locales importante.</li>"
+          )
+          .openPopup();
+        L.marker([7.1193, -73.1198])
+          .addTo(map)
+          .bindPopup(
+            "<div class='popuTextTitle'>Bucaramanga</div> <li class='popuRecomend'> Especies recomendadas: Caña Fistula, Guayacán rosado, Roble.</li> <li class='popuConsiderations'> Consideraciones: Zona montañosa, diversidad de microclimas, adecuado para especies de bosque seco y húmedo.</li>"
+          )
+          .openPopup();
+        L.marker([5.0671, -75.5174])
+          .addTo(map)
+          .bindPopup(
+            "<div class='popuTextTitle'>Manizales</div> <li class='popuRecomend'> Especies recomendadas: Cedro, Pino Colombiano, Nogal Cafetero.</li> <li class='popuConsiderations'> Consideraciones: Zona con alta pluviosidad y suelos fértiles, adecuada para especies que necesitan mucha agua.</li>"
+          )
+          .openPopup();
+        L.marker([10.5556, -73.6367])
+          .addTo(map)
+          .bindPopup(
+            "<div class='popuTextTitle'>Sierra Nevada</div> <li class='popuRecomend'> Especies recomendadas: Pino Romerón, Cerezo, Ébano. </li> <li class='popuConsiderations'> Consideraciones: Ecotono único con variedad de zonas climáticas, colaboración con comunidades indígenas.</li>"
+          )
+          .openPopup();
+        L.marker([4.4389, -75.2322])
+          .addTo(map)
+          .bindPopup(
+            "<div class='popuTextTitle'>Ibagué </div> <li class='popuRecomend'> Especies recomendadas: Quina, Roble, Caoba.</li> <li class='popuConsiderations'> Consideraciones: Diversidad de ecosistemas desde valle hasta montaña.</li>"
+          )
+          .openPopup();
+      }
     </script>
   </body>
 </html>

@@ -37,8 +37,11 @@ app.use(cors(options));
 
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
-
 require('./utils/auth');
+
+app.get('/', (req, res) => {
+  res.sendFile(process.cwd() + '/templates/pages/inicio.html');
+})
 
 app.get('/maps', (req, res) => {
   res.sendFile(process.cwd() + '/src/views/index.html');
